@@ -1,27 +1,36 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 # Create your views here.
 
+monthly_challenges = {
+    "january": "New Year",
+    "february": "Valentine's Day",
+    "march": "St. Patrick's Day",
+    "april": "April Fools' Day",
+    "may": "May Day",
+    "june": "Summer Solstice",
+    "july": "Independence Day",
+    "august": "Back to School",
+    "september": "Labor Day",
+    "october": "Halloween",
+    "november": "Thanksgiving",
+    "december": "Christmas"
+}
+
+
+def monthly_challenge_by_number(request, month):
+    months = list(monthly_challenges.keys())
+    if month < 1 or month > len(months):
+        return HttpResponseNotFound("<h1>Invalid month number</h1>")
+    redirect_month = months[month-1]
+    print(redirect_month)
+    return HttpResponseRedirect(f"/challenges/{redirect_month}")
+
 
 def monthly_challenge(request, month):
-    months = {
-        "january": "New Year",
-        "february": "Valentine's Day",
-        "march": "St. Patrick's Day",
-        "april": "April Fools' Day",
-        "may": "May Day",
-        "june": "Summer Solstice",
-        "july": "Independence Day",
-        "august": "Back to School",
-        "september": "Labor Day",
-        "october": "Halloween",
-        "november": "Thanksgiving",
-        "december": "Christmas"
-    }
-
-    month = month.lower()
-    if month in months:
-        return HttpResponse(f"<h1>{months[month]}</h1>")
-
-    return HttpResponseNotFound("<h1>Month not found</h1>")
+    try:
+        challenge_text = monthly_challenges[month.lower()]
+        return HttpResponse(f"<h1>{challenge_text}</h1>")
+    except:
+        return HttpResponseNotFound("<h1>Month not found</h1>")

@@ -16,7 +16,7 @@ monthly_challenges = {
     "september": "Labor Day",
     "october": "Halloween",
     "november": "Thanksgiving",
-    "december": "Christmas"
+    "december": None
 }
 
 

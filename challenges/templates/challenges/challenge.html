@@ -18,6 +18,6 @@
 {% if text is not None %}
 <h2>{{text}}</h2>
 {% else %}
-<h2>No challenge available for {{month_name|title}}.</h2>
+<p class="fallback">No challenge available for {{month_name|title}}.</p>
 {% endif %}
 {% endblock %}

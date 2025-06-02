@@ -47,6 +47,7 @@ def monthly_challenge(request, month):
         challenge_text = monthly_challenges[month.lower()]
 
         return render(request, "challenges/challenge.html", {
+            "month_name": month,
             "text": challenge_text
         })
 
